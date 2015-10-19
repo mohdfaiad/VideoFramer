@@ -62,12 +62,7 @@ end;
 
 procedure TForm1.ShowFrame;
 begin
-     with _Video do
-     begin
-          QueryFrame;
-
-          Frame.CopyTo( _Image );
-     end;
+     _Video.Frame.CopyTo( _Image );
 
      _Image.CopyTo( Image1.Bitmap );
 end;
@@ -88,11 +83,16 @@ begin
      end;
 
      ShowInfo;
+
+     _Video.QueryFrame;
+
      ShowFrame;
 end;
 
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
+     _Image.Free;
+
      _Video.Free;
 end;
 
@@ -103,6 +103,9 @@ begin
      _Video.PosFrames := Round( ScrollBar1.Value );
 
      ShowInfo;
+
+     _Video.QueryFrame;
+
      ShowFrame;
 end;
 
